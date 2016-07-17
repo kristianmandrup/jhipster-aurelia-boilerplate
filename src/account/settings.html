@@ -1,0 +1,86 @@
+<template>
+  <div>
+      <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+              <h2 translate="settings.title" translate-values="{username: '${settingsAccount.login}'}">User settings for [<b>${settingsAccount.login}</b>]</h2>
+
+              <div class="alert alert-success" show.bind="success" translate="settings.messages.success">
+                  <strong>Settings saved!</strong>
+              </div>
+
+             <jhi-alert-error></jhi-alert-error>
+
+              <form name="form" role="form" novalidate submit.bind="save()" show-validation>
+
+                  <div class="form-group">
+                      <label class="control-label" for="firstName" translate="settings.form.firstname">First Name</label>
+                      <input type="text" class="form-control" id="firstName" name="firstName" placeholder.bind="settings.form.firstname.placeholder"
+   minlength=1 maxlength=50 required maxlength="50">
+                      <div show.bind="firstName.dirtyInvalid">
+                          <p class="help-block"
+                                 show.bind="form.firstName.error.required" translate="settings.messages.validate.firstname.required">
+                              Your first name is required.
+                          </p>
+                          <p class="help-block"
+                                 show.bind="firstName.error.minlength" translate="settings.messages.validate.firstname.minlength">
+                              Your first name is required to be at least 1 character.
+                          </p>
+                          <p class="help-block"
+                                 show.bind="firstName.error.maxlength" translate="settings.messages.validate.firstname.maxlength">
+                              Your first name cannot be longer than 50 characters.
+                          </p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label" for="lastName" translate="settings.form.lastname">Last Name</label>
+                      <input type="text" class="form-control" id="lastName" name="lastName" placeholder="${'settings.form.lastname.placeholder'}"
+                             model="settingsAccount.lastName" minlength=1 maxlength=50 required maxlength="50">
+                      <div show.bind="lastName.dirtyInvalid">
+                          <p class="help-block"
+                                 show.bind="form.lastName.error.required" translate="settings.messages.validate.lastname.required">
+                              Your last name is required.
+                          </p>
+                          <p class="help-block"
+                                 show.bind="lastName.error.minlength" translate="settings.messages.validate.lastname.minlength">
+                              Your last name is required to be at least 1 character.
+                          </p>
+                          <p class="help-block"
+                                 show.bind="form.lastName.$error.maxlength" translate="settings.messages.validate.lastname.maxlength">
+                              Your last name cannot be longer than 50 characters.
+                          </p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label" for="email" translate="email">E-mail</label>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="${'email.placeholder'}"
+                             model="settingsAccount.email" minlength=5 maxlength=100 required maxlength="100">
+                      <div show="form.email.$dirty && form.email.$invalid">
+                          <p class="help-block"
+                                 show.bind="email.error.required" translate="messages.validate.email.required">
+                              Your e-mail is required.
+                          </p>
+                          <p class="help-block"
+                                 show.bind="email.error.email" translate="messages.validate.email.invalid">
+                              Your e-mail is invalid.
+                          </p>
+                          <p class="help-block"
+                                 show.bind="email.error.minlength" translate="messages.validate.email.minlength">
+                              Your e-mail is required to be at least 5 characters.
+                          </p>
+                          <p class="help-block"
+                                 show.bind="form.email.error.maxlength" translate="global.messages.validate.email.maxlength">
+                              Your e-mail cannot be longer than 100 characters.
+                          </p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="langKey" translate="settings.form.language">Language</label>
+                      <select id="langKey" name="langKey" class="form-control" model="vm.settingsAccount.langKey" controller="JhiLanguageController as languageVm" options="code as (code | findLanguageFromKey) for code in languageVm.languages"></select>
+                  </div>
+
+                  <button type="submit" disabled.bind="invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</template>

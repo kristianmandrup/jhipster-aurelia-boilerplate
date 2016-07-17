@@ -1,34 +1,27 @@
-export default function JhiHealthCheckController (JhiHealthService) {
-    var vm = this;
+export default class Health {
+  constructor(HealthService) {
+    this.updatingHealth = true;
+    this.baseName = HealthService.getBaseName;
+    this.subSystemName = HealthService.getSubSystemName;
+    this.refresh();
+  }
 
-    vm.updatingHealth = true;
-    vm.getLabelClass = getLabelClass;
-    vm.refresh = refresh;
-    vm.showHealth = showHealth;
-    vm.baseName = JhiHealthService.getBaseName;
-    vm.subSystemName = JhiHealthService.getSubSystemName;
-
-    vm.refresh();
-
-    return vm;
-
-    function getLabelClass (statusState) {
-        if (statusState === 'UP') {
-            return 'label-success';
-        } else {
-            return 'label-danger';
-        }
+  getLabelClass (statusState) {
+    if (statusState === 'UP') {
+        return 'label-success';
+    } else {
+        return 'label-danger';
     }
+  }
 
-    function refresh () {
-        vm.updatingHealth = true;
-        JhiHealthService.checkHealth().then(function (response) {
-            vm.healthData = JhiHealthService.transformHealthData(response);
-            vm.updatingHealth = false;
-        }, function (response) {
-            vm.healthData =  JhiHealthService.transformHealthData(response.data);
-            vm.updatingHealth = false;
-        });
-    }
-
+  refresh () {
+    this.updatingHealth = true;
+    HealthService.checkHealth().then(function (response) {
+        this.healthData = HealthService.transformHealthData(response);
+        this.updatingHealth = false;
+    }, function (response) {
+        this.healthData =  HealthService.transformHealthData(response.data);
+        this.updatingHealth = false;
+    });
+  }
 }

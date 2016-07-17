@@ -1,8 +1,8 @@
-import audits from './audits';
-import configuration from './configuration';
-import health from './health';
-import logs from './logs';
-import metrics from './metrics';
+import audits from './audits_service';
+import configuration from './configuration_service';
+import health from './health_service';
+import logs from './logs_service';
+import metrics from './metrics_service';
 
 export default {
   audits: audits,

@@ -1,53 +1,42 @@
-(function() {
-    'use strict';
+export default class MetricsMonitoringModal {
+  constructor($uibModalInstance, threadDump) {
+    this.cancel = cancel;
+    this.getLabelClass = getLabelClass;
+    this.threadDump = threadDump;
+    this.threadDumpAll = 0;
+    this.threadDumpBlocked = 0;
+    this.threadDumpRunnable = 0;
+    this.threadDumpTimedWaiting = 0;
+    this.threadDumpWaiting = 0;
 
-    angular
-        .module('app123App')
-        .controller('JhiMetricsMonitoringModalController', JhiMetricsMonitoringModalController);
-
-    JhiMetricsMonitoringModalController.$inject = ['$uibModalInstance', 'threadDump'];
-
-    function JhiMetricsMonitoringModalController ($uibModalInstance, threadDump) {
-        var vm = this;
-
-        vm.cancel = cancel;
-        vm.getLabelClass = getLabelClass;
-        vm.threadDump = threadDump;
-        vm.threadDumpAll = 0;
-        vm.threadDumpBlocked = 0;
-        vm.threadDumpRunnable = 0;
-        vm.threadDumpTimedWaiting = 0;
-        vm.threadDumpWaiting = 0;
-
-        angular.forEach(threadDump, function(value) {
-            if (value.threadState === 'RUNNABLE') {
-                vm.threadDumpRunnable += 1;
-            } else if (value.threadState === 'WAITING') {
-                vm.threadDumpWaiting += 1;
-            } else if (value.threadState === 'TIMED_WAITING') {
-                vm.threadDumpTimedWaiting += 1;
-            } else if (value.threadState === 'BLOCKED') {
-                vm.threadDumpBlocked += 1;
-            }
-        });
-
-        vm.threadDumpAll = vm.threadDumpRunnable + vm.threadDumpWaiting +
-            vm.threadDumpTimedWaiting + vm.threadDumpBlocked;
-
-        function cancel () {
-            $uibModalInstance.dismiss('cancel');
+    $.forEach(threadDump, (value) => {
+        if (value.threadState === 'RUNNABLE') {
+            this.threadDumpRunnable += 1;
+        } else if (value.threadState === 'WAITING') {
+            this.threadDumpWaiting += 1;
+        } else if (value.threadState === 'TIMED_WAITING') {
+            this.threadDumpTimedWaiting += 1;
+        } else if (value.threadState === 'BLOCKED') {
+            this.threadDumpBlocked += 1;
         }
+    });
 
-        function getLabelClass (threadState) {
-            if (threadState === 'RUNNABLE') {
-                return 'label-success';
-            } else if (threadState === 'WAITING') {
-                return 'label-info';
-            } else if (threadState === 'TIMED_WAITING') {
-                return 'label-warning';
-            } else if (threadState === 'BLOCKED') {
-                return 'label-danger';
-            }
-        }
-    }
-})();
+    this.threadDumpAll = this.threadDumpRunnable + this.threadDumpWaiting +
+        this.threadDumpTimedWaiting + this.threadDumpBlocked;
+  }
+  function cancel () {
+      $uibModalInstance.dismiss('cancel');
+  }
+
+  function getLabelClass (threadState) {
+      if (threadState === 'RUNNABLE') {
+          return 'label-success';
+      } else if (threadState === 'WAITING') {
+          return 'label-info';
+      } else if (threadState === 'TIMED_WAITING') {
+          return 'label-warning';
+      } else if (threadState === 'BLOCKED') {
+          return 'label-danger';
+      }
+  }
+}

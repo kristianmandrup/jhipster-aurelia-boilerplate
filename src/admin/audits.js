@@ -1,4 +1,4 @@
-export default function AuditsController ($filter, AuditsService, ParseLinks) {
+export default class Audits ($filter, AuditsService, ParseLinks) {
     var vm = this;
 
     vm.audits = null;

@@ -1,90 +1,94 @@
-    function UserManagementController(Principal, User, ParseLinks, $state, pagingParams, paginationConstants, JhiLanguageService) {
-        var vm = this;
+export default class UserManagement
+  constructor(Principal, User, ParseLinks, $state, pagingParams, paginationConstants, LanguageService) {
+    this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+    this.currentAccount = null;
+    this.languages = null;
+    this.loadAll = loadAll;
+    this.setActive = setActive;
+    this.users = [];
+    this.page = 1;
+    this.totalItems = null;
+    this.clear = clear;
+    this.links = null;
+    this.loadPage = loadPage;
+    this.predicate = pagingParams.predicate;
+    this.reverse = pagingParams.ascending;
+    this.itemsPerPage = paginationConstants.itemsPerPage;
+    this.transition = transition;
 
-        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        vm.currentAccount = null;
-        vm.languages = null;
-        vm.loadAll = loadAll;
-        vm.setActive = setActive;
-        vm.users = [];
-        vm.page = 1;
-        vm.totalItems = null;
-        vm.clear = clear;
-        vm.links = null;
-        vm.loadPage = loadPage;
-        vm.predicate = pagingParams.predicate;
-        vm.reverse = pagingParams.ascending;
-        vm.itemsPerPage = paginationConstants.itemsPerPage;
-        vm.transition = transition;
+    this.loadAll();
 
-        vm.loadAll();
+    LanguageService.getAll().then((languages) => {
+      this.languages = languages;
+    });
+    Principal.identity().then((account) => {
+      this.currentAccount = account;
+    });
 
-        return vm;
+  }
 
-        JhiLanguageService.getAll().then(function (languages) {
-            vm.languages = languages;
-        });
-        Principal.identity().then(function(account) {
-            vm.currentAccount = account;
-        });
 
-        function setActive (user, isActivated) {
-            user.activated = isActivated;
-            User.update(user, function () {
-                vm.loadAll();
-                vm.clear();
-            });
-        }
+  function setActive (user, isActivated) {
+    user.activated = isActivated;
+    User.update(user, () => {
+      this.loadAll();
+      this.clear();
+    });
+  }
 
-        function loadAll () {
-            User.query({
-                page: pagingParams.page - 1,
-                size: vm.itemsPerPage,
-                sort: sort()
-            }, onSuccess, onError);
-        }
-        function onSuccess (data, headers) {
-            //hide anonymous user from user management: it's a required user for Spring Security
-            for (var i in data) {
-                if (data[i]['login'] === 'anonymoususer') {
-                    data.splice(i, 1);
-                }
-            }
-            vm.links = ParseLinks.parse(headers('link'));
-            vm.totalItems = headers('X-Total-Count');
-            vm.queryCount = vm.totalItems;
-            vm.page = pagingParams.page;
-            vm.users = data;
-        }
-        function onError (error) {
-            AlertService.error(error.data.message);
-        }
-        function clear () {
-            vm.user = {
-                id: null, login: null, firstName: null, lastName: null, email: null,
-                activated: null, langKey: null, createdBy: null, createdDate: null,
-                lastModifiedBy: null, lastModifiedDate: null, resetDate: null,
-                resetKey: null, authorities: null
-            };
-        }
-        function sort () {
-            var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
-            if (vm.predicate !== 'id') {
-                result.push('id');
-            }
-            return result;
-        }
+  function loadAll () {
+    User.query({
+      page: pagingParams.page - 1,
+      size: this.itemsPerPage,
+      sort: sort()
+    }, onSuccess, onError);
+  }
 
-        function loadPage (page) {
-            vm.page = page;
-            vm.transition();
-        }
-
-        function transition () {
-            $state.transitionTo($state.$current, {
-                page: vm.page,
-                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
-            });
-        }
+  function onSuccess (data, headers) {
+    //hide anonymous user from user management: it's a required user for Spring Security
+    for (var i in data) {
+      if (data[i]['login'] === 'anonymoususer') {
+        data.splice(i, 1);
+      }
     }
+    this.links = ParseLinks.parse(headers('link'));
+    this.totalItems = headers('X-Total-Count');
+    this.queryCount = this.totalItems;
+    this.page = pagingParams.page;
+    this.users = data;
+  }
+
+  function onError (error) {
+    AlertService.error(error.data.message);
+  }
+
+  function clear () {
+    this.user = {
+      id: null, login: null, firstName: null, lastName: null, email: null,
+      activated: null, langKey: null, createdBy: null, createdDate: null,
+      lastModifiedBy: null, lastModifiedDate: null, resetDate: null,
+      resetKey: null, authorities: null
+    };
+  }
+
+  function sort () {
+    var result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.predicate !== 'id') {
+        result.push('id');
+    }
+    return result;
+  }
+
+  function loadPage (page) {
+    this.page = page;
+    this.transition();
+  }
+
+  function transition () {
+    $state.transitionTo($state.$current, {
+      page: this.page,
+      sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
+      search: this.currentSearch
+    });
+  }
+}

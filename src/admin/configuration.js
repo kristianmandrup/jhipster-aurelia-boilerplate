@@ -1,15 +1,10 @@
-export default function JhiConfigurationController (JhiConfigurationService) {
-    var vm = this;
-
-    vm.allConfiguration = null;
-    vm.configuration = null;
-
-    return vm;
-
-    JhiConfigurationService.get().then(function(configuration) {
-        vm.configuration = configuration;
+export default class Configuration {
+  constructor(ConfigurationService) {
+    ConfigurationService.get().then((configuration) => {
+      this.configuration = configuration;
     });
-    JhiConfigurationService.getEnv().then(function (configuration) {
-        vm.allConfiguration = configuration;
+    ConfigurationService.getEnv().then((configuration) => {
+        this.allConfiguration = configuration;
     });
+  }
 }

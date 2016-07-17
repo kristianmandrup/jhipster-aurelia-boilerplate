@@ -1,0 +1,27 @@
+<div class="table-responsive">
+    <h2 translate="logs.title">Logs</h2>
+
+    <p translate="logs.nbloggers" translate-values="{total: '${ loggers.length }'}">There are ${ loggers.length } loggers.</p>
+
+    <span translate="logs.filter">Filter</span> <input type="text" ng-model="filter" class="form-control">
+
+    <table class="table table-condensed table-striped table-bordered">
+        <thead>
+        <tr title="click to order">
+            <th click.bind="predicate = 'name'; reverse=!reverse"><span translate="logs.table.name">Name</span></th>
+            <th click.bind="predicate = 'level'; reverse=!reverse"><span translate="logs.table.level">Level</span></th>
+        </tr>
+        </thead>
+
+        <tr ng-repeat="logger in loggers | filter:filter | orderBy:predicate:reverse">
+            <td><small>${logger.name | characters:140}</small></td>
+            <td>
+                <button click.bind="changeLevel(logger.name, 'TRACE')" class.bind="(logger.level=='TRACE') ? 'btn-danger' : 'btn-default'" class="btn btn-default btn-xs">TRACE</button>
+                <button click.bind="changeLevel(logger.name, 'DEBUG')" class.bind="(logger.level=='DEBUG') ? 'btn-warning' : 'btn-default'" class="btn btn-default btn-xs">DEBUG</button>
+                <button click.bind="changeLevel(logger.name, 'INFO')" class.bind="(logger.level=='INFO') ? 'btn-info' : 'btn-default'" class="btn btn-default btn-xs">INFO</button>
+                <button click.bind="changeLevel(logger.name, 'WARN')" class.bind="(logger.level=='WARN') ? 'btn-success' : 'btn-default'" class="btn btn-default btn-xs">WARN</button>
+                <button click.bind="changeLevel(logger.name, 'ERROR')" class.bind="(logger.level=='ERROR') ? 'btn-primary' : 'btn-default'" class="btn btn-default btn-xs">ERROR</button>
+            </td>
+        </tr>
+    </table>
+</div>

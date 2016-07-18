@@ -1,8 +1,13 @@
+import {inject} from 'aurelia-framework';
 import $ from 'util';
 
+@inject(Auth, LoginService)
 class Activate {
-  constructor(Auth, LoginService) {
-    Auth.activateAccount({key: $.params.key}).then(() => {
+  constructor(auth, loginService) {
+    this.auth = auth;
+    this.loginService = loginService;
+
+    this.auth.activateAccount({key: $.params.key}).then(() => {
         this.error = null;
         this.success = 'OK';
     }).catch(function () {
@@ -10,6 +15,6 @@ class Activate {
         this.error = 'ERROR';
     });
 
-    this.login = LoginService.open;
+    this.login = this.loginService.open;
   }
 }

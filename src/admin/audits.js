@@ -1,9 +1,11 @@
+import {inject} from 'aurelia-framework';
 import $ from 'utils';
 import AuditsService from '../services/audits_service'
 import ParseLinks from 'parse_links';
 
+@inject(AuditsService, ParseLinks)
 export default class Audits {
-  constructor(AuditsService, ParseLinks) {
+  constructor(auditsService, parseLinks) {
     this.loadPage = loadPage;
     this.onChangeDate = onChangeDate;
     this.page = 1;
@@ -19,9 +21,9 @@ export default class Audits {
       var fromDate = $.filter('date')(this.fromDate, dateFormat);
       var toDate = $.filter('date')(this.toDate, dateFormat);
 
-      AuditsService.query({page: this.page -1, size: 20, fromDate: fromDate, toDate: toDate}, function(result, headers){
+      this.auditsService.query({page: this.page -1, size: 20, fromDate: fromDate, toDate: toDate}, function(result, headers){
           this.audits = result;
-          this.links = ParseLinks.parse(headers('link'));
+          this.links = this.parseLinks.parse(headers('link'));
           this.totalItems = headers('X-Total-Count');
       });
   }

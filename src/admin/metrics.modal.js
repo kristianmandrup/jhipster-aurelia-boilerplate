@@ -1,3 +1,5 @@
+import {inject} from 'aurelia-framework';
+
 export default class MetricsMonitoringModal {
   constructor($uibModalInstance, threadDump) {
     this.cancel = cancel;

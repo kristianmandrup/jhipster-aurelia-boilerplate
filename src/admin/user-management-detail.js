@@ -1,3 +1,4 @@
+import {inject} from 'aurelia-framework';
 import User from 'user';
 
 @inject(User)

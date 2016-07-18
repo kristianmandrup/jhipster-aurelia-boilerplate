@@ -1,11 +1,11 @@
-// TODO: inject
-// Auth
-// LoginService
+import {inject} from 'aurelia-framework';
 
+@inject(Auth, Principal)
 class Password {
-
-  constructor(Auth, Principal) {
-    Principal.identity().then((account) => {
+  constructor(auth, principal) {
+    this.auth = auth;
+    this.principal = principal;
+    this.principal.identity().then((account) => {
         this.account = account;
     });
   }
@@ -17,10 +17,10 @@ class Password {
         this.doNotMatch = 'ERROR';
     } else {
         this.doNotMatch = null;
-        Auth.changePassword(this.password).then(function () {
+        this.auth.changePassword(this.password).then(() => {
             this.error = null;
             this.success = 'OK';
-        }).catch(function () {
+        }).catch(() => {
             this.success = null;
             this.error = 'ERROR';
         });

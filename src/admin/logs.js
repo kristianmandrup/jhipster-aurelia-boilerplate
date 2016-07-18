@@ -1,13 +1,16 @@
+import {inject} from 'aurelia-framework';
 import LogsService from '../services/logs_service';
 
+@inject(LogsService)
 export default class Logs {
-  constructor(LogsService) {
-    this.loggers = LogsService.findAll();
+  constructor(logsService) {
+    this.loggers = logsService.findAll();
+    this.logsService = logsService;
   }
 
   changeLevel (name, level) {
     LogsService.changeLevel({name: name, level: level}, () => {
-        this.loggers = LogsService.findAll();
+        this.loggers = this.logsService.findAll();
     });
   }
 

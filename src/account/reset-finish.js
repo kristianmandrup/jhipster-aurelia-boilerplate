@@ -1,5 +1,12 @@
+import {inject} from 'aurelia-framework';
+import $ from 'utils';
+
+@inject(Auth, LoginService)
 class ResetFinish {
-  constructor ($, Auth, LoginService) {
+  constructor(auth, loginService) {
+    this.auth = auth;
+    this.loginService = loginService;
+
     this.keyMissing = $.isUndefined($.params.key);
     this.login = LoginService.open;
     this.resetAccount = {};

@@ -1,5 +1,10 @@
 import $ from 'utils';
+import {inject} from 'aurelia-framework';
+import {HttpClient} from 'aurelia-fetch-client';
+import 'fetch';
 
+// TODO: add resource method
+@inject(HttpClient)
 export default class AuditsService {
   constructor() {
     this.resource = $.resource('management/jhipster/audits/:id', {}, {

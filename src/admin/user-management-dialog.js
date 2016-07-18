@@ -1,3 +1,4 @@
+import {inject} from 'aurelia-framework';
 import LanguageService from 'language_service';
 import User from 'user';
 

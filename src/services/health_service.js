@@ -1,12 +1,17 @@
 import $ from 'utils';
+import {inject} from 'aurelia-framework';
+import {HttpClient} from 'aurelia-fetch-client';
+import 'fetch';
 
+@inject(HttpClient)
 export default class HealthService {
-  constructor() {
+  constructor(http) {
     this.separator = '.';
+    this.http = http;
   }
 
   checkHealth () {
-    return $.http.get('management/health').then((response) => {
+    return http.get('management/health').then((response) => {
       return response.data;
     });
   }
@@ -20,7 +25,7 @@ export default class HealthService {
 
 /* private methods */
 function flattenHealthData (result, path, data) {
-    $.forEach(data, (value, key) => {
+    for (let value, key of data) {
         if (isHealthObject(value)) {
             if (hasSubSystem(value)) {
                 addHealthObject(result, false, value, getModuleName(path, key));
@@ -58,7 +63,7 @@ function addHealthObject (result, isLeaf, healthObject, name) {
     var details = {};
     var hasDetails = false;
 
-    angular.forEach(healthObject, function (value, key) {
+    for(let value, key of healthObject) {
         if (key === 'status' || key === 'error') {
             healthData[key] = value;
         } else {
@@ -97,7 +102,7 @@ function getModuleName (path, name) {
 
 function hasSubSystem (healthObject) {
     var result = false;
-    $.forEach(healthObject, (value) => {
+    for(let value of healthObject) => {
         if (value && value.status) {
             result = true;
         }
@@ -107,7 +112,7 @@ function hasSubSystem (healthObject) {
 
 function isHealthObject (healthObject) {
     var result = false;
-    $.forEach(healthObject, (value, key) => {
+    for(let value, key of healthObject) => {
         if (key === 'status') {
             result = true;
         }

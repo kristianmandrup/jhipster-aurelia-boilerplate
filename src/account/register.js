@@ -1,11 +1,13 @@
+import {inject} from 'aurelia-framework';
 import $ from 'utils';
 
-// TODO: inject
-// Auth
-// LoginService
+@inject(Auth, LoginService)
 export default class Register {
-  constructor(Auth, LoginService) {
-    this.login = LoginService.open;
+  constructor(auth, loginService) {
+    this.auth = auth;
+    this.loginService = loginService;
+
+    this.login = this.LoginService.open;
     this.registerAccount = {};
 
     $.timeout(() => $.element('#login').focus());
@@ -21,9 +23,9 @@ export default class Register {
         this.errorUserExists = null;
         this.errorEmailExists = null;
 
-        Auth.createAccount(this.registerAccount).then(() => {
+        this.auth.createAccount(this.registerAccount).then(() => {
             this.success = 'OK';
-        }).catch(function (response) {
+        }).catch((response) => {
             this.success = null;
             if (response.status === 400 && response.data === 'login already in use') {
                 this.errorUserExists = 'ERROR';

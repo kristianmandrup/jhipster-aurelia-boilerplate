@@ -1,13 +1,17 @@
+import {inject} from 'aurelia-framework';
+import $ from 'utils';
+
+@inject(Auth)
 class ResetRequest {
-  constructor($, Auth) {
+  constructor(Auth) {
     this.resetAccount = {};
     $.timeout(() => $.element('#email').focus(););
   }
   requestReset () {
-    vm.error = null;
-    vm.errorEmailNotExists = null;
+    this.error = null;
+    this.errorEmailNotExists = null;
 
-    Auth.resetPasswordInit(this.resetAccount.email).then(() =>
+    this.Auth.resetPasswordInit(this.resetAccount.email).then(() =>
       this.success = 'OK';
     ).catch((response) =>
         this.success = null;

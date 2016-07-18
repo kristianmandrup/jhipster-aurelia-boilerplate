@@ -1,10 +1,13 @@
+import {inject} from 'aurelia-framework';
 import HealthService from '../services/health_service';
 
+@inject(HealthService)
 export default class Health {
-  constructor(HealthService) {
+  constructor(healthService) {
+    this.healthService = healthService;
     this.updatingHealth = true;
-    this.baseName = HealthService.getBaseName;
-    this.subSystemName = HealthService.getSubSystemName;
+    this.baseName = this.healthService.getBaseName;
+    this.subSystemName = this.healthService.getSubSystemName;
     this.refresh();
   }
 
@@ -18,11 +21,11 @@ export default class Health {
 
   refresh () {
     this.updatingHealth = true;
-    HealthService.checkHealth().then((response) => {
-        this.healthData = HealthService.transformHealthData(response);
+    this.healthService.checkHealth().then((response) => {
+        this.healthData = this.healthService.transformHealthData(response);
         this.updatingHealth = false;
     }, (response) => {
-        this.healthData =  HealthService.transformHealthData(response.data);
+        this.healthData =  this.healthService.transformHealthData(response.data);
         this.updatingHealth = false;
     });
   }

@@ -1,3 +1,4 @@
+import {inject} from 'aurelia-framework';
 import MetricsService from '../services/metrics_service';
 
 @inject(MetricsService)

@@ -1,10 +1,21 @@
+import {inject} from 'aurelia-framework';
+import $ from 'utils';
+import Principal from 'principal';
+import Auth from 'auth';
+import LanguageService from 'language_service';
+
+@inject(Principal, Auth, LanguageService)
 class Settings {
-  constructor(Principal, Auth, JhiLanguageService) {
+  constructor(principal, auth, languageService) {
+    this.principal = principal;
+    this.auth = auth;
+    this.languageService = languageService;
+
     this.error = null;
     this.settingsAccount = null;
     this.success = null;
 
-    Principal.identity().then(account =>
+    this.principal.identity().then(account =>
       this.settingsAccount = copyAccount(account)
     );
   }
@@ -24,18 +35,18 @@ class Settings {
   }
 
   save() {
-    Auth.updateAccount(this.settingsAccount).then(() =>
+    this.auth.updateAccount(this.settingsAccount).then(() =>
         this.error = null;
         this.success = 'OK';
-        Principal.identity(true).then((account) =>
+        this.principal.identity(true).then((account) =>
             this.settingsAccount = copyAccount(account);
         );
-        JhiLanguageService.getCurrent().then((current) =>
+        this.languageService.getCurrent().then((current) =>
             if (vm.settingsAccount.langKey !== current) {
                 $.translate.use(this.settingsAccount.langKey);
             }
         );
-    ).catch(function() {
+    ).catch(() => {
         this.success = null;
         this.error = 'ERROR';
     });

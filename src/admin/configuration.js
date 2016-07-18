@@ -1,11 +1,17 @@
+import {inject} from 'aurelia-framework';
 import ConfigurationService from '../services/configuration_service';
 
+@inject(ConfigurationService)
+
 export default class Configuration {
-  constructor(ConfigurationService) {
-    ConfigurationService.get().then((configuration) => {
+  constructor(configurationService) {
+    this.ConfigurationService = ConfigurationService;
+
+    this.configurationService.get().then((configuration) => {
       this.configuration = configuration;
     });
-    ConfigurationService.getEnv().then((configuration) => {
+
+    this.configurationService.getEnv().then((configuration) => {
         this.allConfiguration = configuration;
     });
   }

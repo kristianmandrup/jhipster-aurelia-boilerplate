@@ -1,46 +1,39 @@
-(function() {
-    'use strict';
+import LanguageService from 'language_service';
+import User from 'user';
 
-    angular
-        .module('app123App')
-        .controller('UserManagementDialogController',UserManagementDialogController);
+@inject(User, LanguageService)
+export default class UserManagementDialogController {
+  constructor(User, LanguageService, $stateParams, $uibModalInstance, entity) {
+    this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+    this.clear = clear;
+    this.languages = null;
+    this.save = save;
+    this.user = entity;
 
-    UserManagementDialogController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'User', 'JhiLanguageService'];
+    JhiLanguageService.getAll().then((languages) => {
+      this.languages = languages;
+    });
+  }
 
-    function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User, JhiLanguageService) {
-        var vm = this;
+  clear () {
+      $uibModalInstance.dismiss('cancel');
+  }
 
-        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        vm.clear = clear;
-        vm.languages = null;
-        vm.save = save;
-        vm.user = entity;
+  onSaveSuccess (result) {
+    this.isSaving = false;
+    $uibModalInstance.close(result);
+  }
 
+  onSaveError () {
+    this.isSaving = false;
+  }
 
-        JhiLanguageService.getAll().then(function (languages) {
-            vm.languages = languages;
-        });
-
-        function clear () {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        function onSaveSuccess (result) {
-            vm.isSaving = false;
-            $uibModalInstance.close(result);
-        }
-
-        function onSaveError () {
-            vm.isSaving = false;
-        }
-
-        function save () {
-            vm.isSaving = true;
-            if (vm.user.id !== null) {
-                User.update(vm.user, onSaveSuccess, onSaveError);
-            } else {
-                User.save(vm.user, onSaveSuccess, onSaveError);
-            }
-        }
+  save () {
+    this.isSaving = true;
+    if (this.user.id !== null) {
+        User.update(this.user, onSaveSuccess, onSaveError);
+    } else {
+        User.save(this.user, onSaveSuccess, onSaveError);
     }
-})();
+  }
+}

@@ -1,3 +1,5 @@
+import HealthService from '../services/health_service';
+
 export default class Health {
   constructor(HealthService) {
     this.updatingHealth = true;
@@ -16,10 +18,10 @@ export default class Health {
 
   refresh () {
     this.updatingHealth = true;
-    HealthService.checkHealth().then(function (response) {
+    HealthService.checkHealth().then((response) => {
         this.healthData = HealthService.transformHealthData(response);
         this.updatingHealth = false;
-    }, function (response) {
+    }, (response) => {
         this.healthData =  HealthService.transformHealthData(response.data);
         this.updatingHealth = false;
     });

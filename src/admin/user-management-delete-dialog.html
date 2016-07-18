@@ -1,5 +1,5 @@
 <template>
-  <form name="deleteForm" submit.bind="confirmDelete(user.login)">
+  <form name="deleteForm" submit.trigger="confirmDelete(user.login)">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                   click.bind="clear()">&times;</button>

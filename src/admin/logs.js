@@ -1,4 +1,5 @@
-// TODO: inject LogsService
+import LogsService from '../services/logs_service';
+
 export default class Logs {
   constructor(LogsService) {
     this.loggers = LogsService.findAll();

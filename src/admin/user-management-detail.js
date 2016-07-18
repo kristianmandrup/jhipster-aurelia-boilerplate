@@ -1,6 +1,8 @@
-// TODO: inject User
+import User from 'user';
+
+@inject(User)
 export default class UserManagementDetail {
-  constructor($stateParams, User) {
+  constructor(User, $stateParams) {
     this.user = {};
     this.User = User;
 

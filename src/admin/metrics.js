@@ -1,5 +1,8 @@
+import MetricsService from '../services/metrics_service';
+
+@inject(MetricsService)
 export default class MetricsMonitoring {
-  constructor($scope, JhiMetricsService, $uibModal) {
+  constructor(MetricsService, $uibModal) {
     this.cachesStats = {};
     this.metrics = {};
     this.servicesStats = {};

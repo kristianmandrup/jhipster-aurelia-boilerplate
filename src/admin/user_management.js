@@ -1,5 +1,11 @@
+import LanguageService from 'language_service';
+import Principal from 'principal';
+import User from 'user';
+import ParseLinks from 'parse_links';
+
+@inject(Principal, User, ParseLinks)
 export default class UserManagement
-  constructor(Principal, User, ParseLinks, $state, pagingParams, paginationConstants, LanguageService) {
+  constructor(Principal, User, ParseLinks, LanguageService, $state, pagination) {
     this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     this.currentAccount = null;
     this.languages = null;
@@ -28,7 +34,7 @@ export default class UserManagement
   }
 
 
-  function setActive (user, isActivated) {
+  setActive (user, isActivated) {
     user.activated = isActivated;
     User.update(user, () => {
       this.loadAll();
@@ -36,7 +42,7 @@ export default class UserManagement
     });
   }
 
-  function loadAll () {
+  loadAll () {
     User.query({
       page: pagingParams.page - 1,
       size: this.itemsPerPage,
@@ -44,7 +50,7 @@ export default class UserManagement
     }, onSuccess, onError);
   }
 
-  function onSuccess (data, headers) {
+  onSuccess (data, headers) {
     //hide anonymous user from user management: it's a required user for Spring Security
     for (var i in data) {
       if (data[i]['login'] === 'anonymoususer') {
@@ -58,11 +64,11 @@ export default class UserManagement
     this.users = data;
   }
 
-  function onError (error) {
+  onError (error) {
     AlertService.error(error.data.message);
   }
 
-  function clear () {
+  clear () {
     this.user = {
       id: null, login: null, firstName: null, lastName: null, email: null,
       activated: null, langKey: null, createdBy: null, createdDate: null,
@@ -71,7 +77,7 @@ export default class UserManagement
     };
   }
 
-  function sort () {
+  sort () {
     var result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
         result.push('id');
@@ -79,12 +85,12 @@ export default class UserManagement
     return result;
   }
 
-  function loadPage (page) {
+  loadPage (page) {
     this.page = page;
     this.transition();
   }
 
-  function transition () {
+  transition () {
     $state.transitionTo($state.$current, {
       page: this.page,
       sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),

@@ -17,11 +17,11 @@
           <tr ng-repeat="logger in loggers | filter:filter | orderBy:predicate:reverse">
               <td><small>${logger.name | characters:140}</small></td>
               <td>
-                  <button click.bind="changeLevel(logger.name, 'TRACE')" class.bind="(logger.level=='TRACE') ? 'btn-danger' : 'btn-default'" class="btn btn-default btn-xs">TRACE</button>
-                  <button click.bind="changeLevel(logger.name, 'DEBUG')" class.bind="(logger.level=='DEBUG') ? 'btn-warning' : 'btn-default'" class="btn btn-default btn-xs">DEBUG</button>
-                  <button click.bind="changeLevel(logger.name, 'INFO')" class.bind="(logger.level=='INFO') ? 'btn-info' : 'btn-default'" class="btn btn-default btn-xs">INFO</button>
-                  <button click.bind="changeLevel(logger.name, 'WARN')" class.bind="(logger.level=='WARN') ? 'btn-success' : 'btn-default'" class="btn btn-default btn-xs">WARN</button>
-                  <button click.bind="changeLevel(logger.name, 'ERROR')" class.bind="(logger.level=='ERROR') ? 'btn-primary' : 'btn-default'" class="btn btn-default btn-xs">ERROR</button>
+                  <button click.bind="changeLevel(logger.name, 'TRACE')" class="btn-${traceBtn} btn btn-default btn-xs">TRACE</button>
+                  <button click.bind="changeLevel(logger.name, 'DEBUG')" class="btn-${debugBtn} btn btn-default btn-xs">DEBUG</button>
+                  <button click.bind="changeLevel(logger.name, 'INFO')" class="btn-${infoBtn} btn btn-default btn-xs">INFO</button>
+                  <button click.bind="changeLevel(logger.name, 'WARN')" class="btn-${warnBtn} btn btn-default btn-xs">WARN</button>
+                  <button click.bind="changeLevel(logger.name, 'ERROR')" class="btn-${errorBtn} btn btn-default btn-xs">ERROR</button>
               </td>
           </tr>
       </table>

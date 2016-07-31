@@ -5,6 +5,7 @@ import ParseLinks from 'parse_links';
 
 @inject(AuditsService, ParseLinks)
 export default class Audits {
+
   constructor(auditsService, parseLinks) {
     this.loadPage = loadPage;
     this.onChangeDate = onChangeDate;
@@ -16,6 +17,7 @@ export default class Audits {
     this.onChangeDate();
   }
 
+  // See $.filter at https://docs.angularjs.org/api/ng/filter/filter
   onChangeDate () {
       var dateFormat = 'yyyy-MM-dd';
       var fromDate = $.filter('date')(this.fromDate, dateFormat);

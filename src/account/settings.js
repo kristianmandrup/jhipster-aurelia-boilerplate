@@ -35,18 +35,18 @@ class Settings {
   }
 
   save() {
-    this.auth.updateAccount(this.settingsAccount).then(() =>
+    this.auth.updateAccount(this.settingsAccount).then(() => {
         this.error = null;
         this.success = 'OK';
-        this.principal.identity(true).then((account) =>
+        this.principal.identity(true).then((account) => {
             this.settingsAccount = copyAccount(account);
-        );
-        this.languageService.getCurrent().then((current) =>
+        });
+        this.languageService.getCurrent().then((current) => {
             if (vm.settingsAccount.langKey !== current) {
-                $.translate.use(this.settingsAccount.langKey);
+                    $.translate.use(this.settingsAccount.langKey);
             }
-        );
-    ).catch(() => {
+        });
+    }).catch(() => {
         this.success = null;
         this.error = 'ERROR';
     });

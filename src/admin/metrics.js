@@ -1,13 +1,15 @@
+import $ from '../utils';
 import {inject} from 'aurelia-framework';
 import MetricsService from '../services/metrics_service';
 
 @inject(MetricsService)
 export default class MetricsMonitoring {
-  constructor(MetricsService, $uibModal) {
+  constructor(MetricsService, uibModal) {
     this.cachesStats = {};
     this.metrics = {};
     this.servicesStats = {};
     this.updatingMetrics = true;
+    this.uibModal = uibModal;
     this.refresh();
   }
 
@@ -46,7 +48,7 @@ export default class MetricsMonitoring {
 
   refreshThreadDumpData () {
     MetricsService.threadDump().then((data) => {
-      $uibModal.open({
+      this.uibModal.open({
         templateUrl: 'app/admin/metrics/metrics.modal.html',
         controller: 'JhiMetricsMonitoringModalController',
         controllerAs: 'vm',

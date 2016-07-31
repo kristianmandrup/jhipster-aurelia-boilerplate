@@ -1,12 +1,12 @@
 export default class HealthModal {
-  constructor($uibModalInstance, currentHealth, baseName, subSystemName) {
+  constructor(modalInstance, currentHealth, baseName, subSystemName) {
     this.currentHealth = currentHealth;
     this.baseName = baseName;
     this.subSystemName = subSystemName;
-    this.$uibModalInstance = $uibModalInstance;
+    this.modalInstance = modalInstance;
   }
 
   cancel() {
-    this.$uibModalInstance.dismiss('cancel');
+    this.modalInstance.dismiss('cancel');
   }
 }

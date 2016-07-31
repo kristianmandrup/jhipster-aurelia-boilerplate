@@ -4,7 +4,7 @@
           <div class="col-md-8 col-md-offset-2">
               <h1 translate="reset.request.title">Reset your password</h1>
 
-              <div class="alert alert-danger" translate="reset.request.messages.notfound" show.bind="vm.errorEmailNotExists">
+              <div class="alert alert-danger" translate="reset.request.messages.notfound" show.bind="errorEmailNotExists">
                   <strong>E-Mail address isn't registered!</strong> Please check and try again.
               </div>
 
@@ -16,7 +16,7 @@
                   <p translate="reset.request.messages.success">Check your e-mails for details on how to reset your password.</p>
               </div>
 
-              <form vm..bind="!vm.success" name="form" role="form" novalidate submit="requestReset()" show.bind-validation>
+              <form .bind="!success" name="form" role="form" novalidate submit="requestReset()" show.bind-validation>
                   <div class="form-group">
                       <label class="control-label" for="email" translate="global.form.email">E-mail</label>
                       <input type="email" class="form-control" id="email" name="email" placeholder.bind="email.placeholder" minlength=5 maxlength=100 required>

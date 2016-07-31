@@ -75,7 +75,7 @@
                   </div>
                   <div class="form-group">
                       <label for="langKey" translate="settings.form.language">Language</label>
-                      <select id="langKey" name="langKey" class="form-control" model="vm.settingsAccount.langKey" controller="JhiLanguageController as languageVm" options="code as (code | findLanguageFromKey) for code in languageVm.languages"></select>
+                      <select id="langKey" name="langKey" class="form-control" model="settingsAccount.langKey" controller="JhiLanguageController as languageVm" options="code as (code | findLanguageFromKey) for code in languagelanguages"></select>
                   </div>
 
                   <button type="submit" disabled.bind="invalid" class="btn btn-primary" translate="settings.form.button">Save</button>

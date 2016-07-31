@@ -1,15 +1,15 @@
 import $ from 'utils';
 import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import 'fetch';
+import {Resource} from '../resource';
 
-// TODO: add resource method
-@inject(HttpClient)
+@inject(Resource)
 export default class LogsService {
-  constructor() {
-    this.resource = $.resource('management/jhipster/logs', {}, {
+  constructor(resource) {
+    resource.fetch('management/jhipster/logs', {}, {
       'findAll': { method: 'GET', isArray: true},
       'changeLevel': { method: 'PUT'}
+    }).then((response) => {
+      console.log(response);
     });
   }
 }

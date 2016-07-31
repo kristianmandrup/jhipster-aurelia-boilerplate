@@ -1,6 +1,4 @@
 export class AccountRouter {
-  heading = 'Account Router';
-
   configureRouter(config, router){
     config.map([
       { route: 'activate',  name: 'activate', moduleId: './activate', nav: true, title: 'Activate' },

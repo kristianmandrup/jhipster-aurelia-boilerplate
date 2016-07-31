@@ -4,7 +4,7 @@
 
       <p translate="logs.nbloggers" translate-values="{total: '${ loggers.length }'}">There are ${ loggers.length } loggers.</p>
 
-      <span translate="logs.filter">Filter</span> <input type="text" ng-model="filter" class="form-control">
+      <span translate="logs.filter">Filter</span> <input type="text" model.bind="filter" class="form-control">
 
       <table class="table table-condensed table-striped table-bordered">
           <thead>
@@ -14,7 +14,7 @@
           </tr>
           </thead>
 
-          <tr ng-repeat="logger in loggers | filter:filter | orderBy:predicate:reverse">
+          <tr repeat.for="logger in loggers | filter:filter | orderBy:predicate:reverse">
               <td><small>${logger.name | characters:140}</small></td>
               <td>
                   <button click.bind="changeLevel(logger.name, 'TRACE')" class="btn-${traceBtn} btn btn-default btn-xs">TRACE</button>

@@ -4,48 +4,48 @@
           <div class="col-md-8 col-md-offset-2">
               <h1 translate="register.title">Registration</h1>
 
-              <div class="alert alert-success" show="vm.success" translate="register.messages.success">
+              <div class="alert alert-success" show="success" translate="register.messages.success">
                   <strong>Registration saved!</strong> Please check your email for confirmation.
               </div>
 
-              <div class="alert alert-danger" show="vm.error" translate="register.messages.error.fail">
+              <div class="alert alert-danger" show="error" translate="register.messages.error.fail">
                   <strong>Registration failed!</strong> Please try again later.
               </div>
 
-              <div class="alert alert-danger" show="vm.errorUserExists" translate="register.messages.error.userexists">
+              <div class="alert alert-danger" show="errorUserExists" translate="register.messages.error.userexists">
                   <strong>Login name already registered!</strong> Please choose another one.
               </div>
 
-              <div class="alert alert-danger" show="vm.errorEmailExists" translate="register.messages.error.emailexists">
+              <div class="alert alert-danger" show="errorEmailExists" translate="register.messages.error.emailexists">
                   <strong>E-mail is already in use!</strong> Please choose another one.
               </div>
 
-              <div class="alert alert-danger" show="vm.doNotMatch" translate="global.messages.error.dontmatch">
+              <div class="alert alert-danger" show="doNotMatch" translate="global.messages.error.dontmatch">
                   The password and its confirmation do not match!
               </div>
           </div>
           <div class="col-md-8 col-md-offset-2">
-              <form show="!vm.success" name="form" role="form" novalidate submit="vm.register()" show-validation>
+              <form show="!success" name="form" role="form" novalidate submit="register()" show-validation>
 
                   <div class="form-group">
                       <label class="control-label" for="login" translate="global.form.username">Username</label>
                       <input type="text" class="form-control" id="login" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
-                             model="vm.registerAccount.login" minlength=1 maxlength=50 pattern="/^[_'.@A-Za-z0-9-]*$/" required>
-                      <div show="form.login.$dirty && form.login.$invalid">
+                             model="registerAccount.login" minlength=1 maxlength=50 pattern="/^[_'.@A-Za-z0-9-]*$/" required>
+                      <div show="login.$dirty && form.login.$invalid">
                           <p class="help-block"
-                                 show="form.login.$error.required" translate="register.messages.validate.login.required">
+                                 show="login.$error.required" translate="register.messages.validate.login.required">
                               Your username is required.
                           </p>
                           <p class="help-block"
-                                 show="form.login.$error.minlength" translate="register.messages.validate.login.minlength">
+                                 show="login.$error.minlength" translate="register.messages.validate.login.minlength">
                               Your username is required to be at least 1 character.
                           </p>
                           <p class="help-block"
-                                 show="form.login.$error.maxlength" translate="register.messages.validate.login.maxlength">
+                                 show="login.$error.maxlength" translate="register.messages.validate.login.maxlength">
                               Your username cannot be longer than 50 characters.
                           </p>
                           <p class="help-block"
-                                 show="form.login.$error.pattern" translate="register.messages.validate.login.pattern">
+                                 show="login.$error.pattern" translate="register.messages.validate.login.pattern">
                               Your username can only contain lower-case letters and digits.
                       </p>
                       </div>
@@ -78,11 +78,11 @@
  minlength=4 maxlength=50 required>
                       <div show.bind="password.dirtyInvalid">
                           <p class="help-block"
-                                 show.bind="form.password.error.required" translate="messages.validate.newpassword.required">
+                                 show.bind="password.error.required" translate="messages.validate.newpassword.required">
                               Your password is required.
                           </p>
                           <p class="help-block"
-                                 show.bind="form.password.error.minlength" translate="messages.validate.newpassword.minlength">
+                                 show.bind="password.error.minlength" translate="messages.validate.newpassword.minlength">
                               Your password is required to be at least 4 characters.
                           </p>
                           <p class="help-block"

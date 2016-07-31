@@ -1,30 +1,29 @@
-import $ from 'utils';
 import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import 'fetch';
+import {Resource} from '../resource';
 
-@inject(HttpClient)
+@inject(Resource)
 export default class ConfigurationService {
-  constructor(http) {
-    this.http = http;
+  constructor(resource) {
+    this.resource = resource;
   }
 
-  get () {
-    return this.http.get('management/configprops').then(getConfigPropsComplete);
+  retrieve() {
+    return this.http.fetch('management/configprops').then(this.getConfigPropsComplete);
   }
 
   getEnv () {
-    return this.http.get('management/env').then(getEnvComplete);
+    return this.http.fetch('management/env').then(this.getEnvComplete);
   }
 }
 
 function getConfigPropsComplete (response) {
-    var properties = [];
-    for (let data of response.data) {
-        properties.push(data);
-    );
-    var orderBy = $.filter('orderBy');
-    return orderBy(properties, 'prefix');
+    let properties = [];
+    let data = response.json.data;
+    for (let prop of data) {
+        properties.push(prop);
+    }
+    // TODO: filter and sort
+    return properties;
 }
 
 function getEnvComplete (response) {
@@ -33,8 +32,8 @@ function getEnvComplete (response) {
       var vals = [];
       for( let v,k of val) {
         vals.push({ key:k, val:v });
-      });
+      };
       properties[key] = vals;
-    });
+    };
     return properties;
 }

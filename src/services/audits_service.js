@@ -1,13 +1,13 @@
 import $ from 'utils';
 import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
+import {Resource} from '../resource';
 import 'fetch';
 
 // TODO: add resource method
-@inject(HttpClient)
+@inject(Resource)
 export default class AuditsService {
-  constructor() {
-    this.resource = $.resource('management/jhipster/audits/:id', {}, {
+  constructor(resource) {
+    resource.fetch('management/jhipster/audits/:id', {}, {
       'get': {
           method: 'GET',
           isArray: true
@@ -17,6 +17,8 @@ export default class AuditsService {
           isArray: true,
           params: {fromDate: null, toDate: null}
       }
+    }).then((response) => {
+      console.log(response.json);
     });
   }
 }

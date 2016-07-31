@@ -4,12 +4,14 @@ import User from 'user';
 
 @inject(User, LanguageService)
 export default class UserManagementDialogController {
-  constructor(User, LanguageService, $stateParams, $uibModalInstance, entity) {
+  constructor(User, LanguageService, stateParams, uibModalInstance, entity) {
     this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     this.clear = clear;
     this.languages = null;
     this.save = save;
     this.user = entity;
+    this.stateParams = stateParams; 
+    this.uibModalInstance = uibModalInstance; 
 
     JhiLanguageService.getAll().then((languages) => {
       this.languages = languages;
@@ -17,12 +19,12 @@ export default class UserManagementDialogController {
   }
 
   clear () {
-      $uibModalInstance.dismiss('cancel');
+      this.uibModalInstance.dismiss('cancel');
   }
 
   onSaveSuccess (result) {
     this.isSaving = false;
-    $uibModalInstance.close(result);
+    this.uibModalInstance.close(result);
   }
 
   onSaveError () {
@@ -32,9 +34,9 @@ export default class UserManagementDialogController {
   save () {
     this.isSaving = true;
     if (this.user.id !== null) {
-        User.update(this.user, onSaveSuccess, onSaveError);
+        User.update(this.user, this.onSaveSuccess, this.onSaveError);
     } else {
-        User.save(this.user, onSaveSuccess, onSaveError);
+        User.save(this.user, this.onSaveSuccess, this.onSaveError);
     }
   }
 }

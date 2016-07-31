@@ -5,7 +5,7 @@ import User from 'user';
 import ParseLinks from 'parse_links';
 
 @inject(Principal, User, ParseLinks)
-export default class UserManagement
+export default class UserManagement {
   constructor(Principal, User, ParseLinks, LanguageService, $state, pagination) {
     this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     this.currentAccount = null;

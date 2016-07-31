@@ -10,9 +10,9 @@ class Sessions {
     this.sessions = this.session.getAll();
     this.success = null;
 
-    this.principal.identity().then((account) =>
+    this.principal.identity().then((account) => {
         this.account = account;
-    );
+    });
   }
 
   invalidate(series) {

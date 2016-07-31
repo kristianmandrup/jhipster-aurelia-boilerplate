@@ -1,6 +1,4 @@
 export class AdminRouter {
-  heading = 'Admin Router';
-
   configureRouter(config, router){
     config.map([
       { route: 'audits',  name: 'audits', moduleId: './audits', nav: true, title: 'Audits' },

@@ -24,6 +24,7 @@
         </tr>
         </thead>
 
+        <!-- see http://eisenbergeffect.bluespire.com/binding-with-value-converters-in-aurelia/ -->
         <tr repeat.for="audit of audits | filter | reverse" hide.bind="audit.filtered">
             <td><span>${audit.timestamp | date:'medium'}</span></td>
             <td><small>${audit.principal}</small></td>

@@ -24,12 +24,12 @@
                   The password and its confirmation do not match!
               </div>
 
-              <div hide.bind="vm.keyMissing">
-                  <form show.bind="!vm.success" name="form" role="form" novalidate submit="vm.finishReset()" show.bind-validation>
+              <div hide.bind="keyMissing">
+                  <form show.bind="!success" name="form" role="form" novalidate submit="finishReset()" show.bind-validation>
                       <div class="form-group">
                           <label class="control-label" for="password" translate="global.form.newpassword">New password</label>
                           <input type="password" class="form-control" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
-                                 model="vm.resetAccount.password" minlength=4 maxlength=50 required>
+                                 model="resetAccount.password" minlength=4 maxlength=50 required>
                           <div show.bind="password.dirtyInvalid">
                               <p class="help-block"
                                  show.bind="form.password.error.required" translate="global.messages.validate.newpassword.required">

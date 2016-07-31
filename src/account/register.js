@@ -1,5 +1,5 @@
 import {inject} from 'aurelia-framework';
-import $ from 'utils';
+import $ from '../utils';
 
 @inject(Auth, LoginService)
 export default class Register {

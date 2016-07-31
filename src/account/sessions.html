@@ -1,11 +1,11 @@
 <template>
   <div>
-      <h2 translate="sessions.title" translate-values="{username: '${vm.account.login}'}">Active sessions for [<b>${account.login}</b>]</h2>
+      <h2 translate="sessions.title" translate-values="{username: '${account.login}'}">Active sessions for [<b>${account.login}</b>]</h2>
 
-      <div class="alert alert-success" show="vm.success" translate="sessions.messages.success">
+      <div class="alert alert-success" show="success" translate="sessions.messages.success">
           <strong>Session invalidated!</strong>
       </div>
-      <div class="alert alert-danger" show="vm.error" translate="sessions.messages.error">
+      <div class="alert alert-danger" show="error" translate="sessions.messages.error">
           <strong>An error has occured!</strong> The session could not be invalidated.
       </div>
 
@@ -20,7 +20,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr repeat="session in vm.sessions">
+                  <tr repeat="session in sessions">
                       <td>${session.ipAddress}</td>
                       <td>${session.userAgent}</td>
                       <td>${session.formattedTokenDate}</td>

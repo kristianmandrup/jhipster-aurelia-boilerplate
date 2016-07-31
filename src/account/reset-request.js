@@ -5,15 +5,15 @@ import $ from 'utils';
 class ResetRequest {
   constructor(Auth) {
     this.resetAccount = {};
-    $.timeout(() => $.element('#email').focus(););
+    $.timeout(() => $.element('#email').focus());
   }
   requestReset () {
     this.error = null;
     this.errorEmailNotExists = null;
 
-    this.Auth.resetPasswordInit(this.resetAccount.email).then(() =>
+    this.Auth.resetPasswordInit(this.resetAccount.email).then(() => {
       this.success = 'OK';
-    ).catch((response) =>
+    }).catch((response) => {
         this.success = null;
         if (response.status === 400 && response.data === 'e-mail address not registered') {
             this.errorEmailNotExists = 'ERROR';

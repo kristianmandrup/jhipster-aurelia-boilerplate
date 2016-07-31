@@ -1,13 +1,16 @@
 import {inject} from 'aurelia-framework';
-import $ from 'util';
+import {Router} from 'aurelia-router';
 
-@inject(Auth, LoginService)
+// See https://auth0.com/blog/creating-your-first-aurelia-app-from-authentication-to-calling-an-api/
+@inject(Router, Auth, LoginService)
 class Activate {
-  constructor(auth, loginService) {
+  constructor(router, auth, loginService) {
     this.auth = auth;
     this.loginService = loginService;
+  }
 
-    this.auth.activateAccount({key: $.params.key}).then(() => {
+  activate(params, routeConfig) {
+    this.auth.activateAccount({key: params.key}).then(() => {
         this.error = null;
         this.success = 'OK';
     }).catch(function () {

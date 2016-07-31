@@ -1,7 +1,8 @@
+import $ from '../utils';
 import {inject} from 'aurelia-framework';
 
 export default class MetricsMonitoringModal {
-  constructor($uibModalInstance, threadDump) {
+  constructor(uibModalInstance, threadDump) {
     this.cancel = cancel;
     this.getLabelClass = getLabelClass;
     this.threadDump = threadDump;
@@ -10,6 +11,7 @@ export default class MetricsMonitoringModal {
     this.threadDumpRunnable = 0;
     this.threadDumpTimedWaiting = 0;
     this.threadDumpWaiting = 0;
+    this.uibModalInstance = uibModalInstance;
 
     $.forEach(threadDump, (value) => {
         if (value.threadState === 'RUNNABLE') {
@@ -26,11 +28,12 @@ export default class MetricsMonitoringModal {
     this.threadDumpAll = this.threadDumpRunnable + this.threadDumpWaiting +
         this.threadDumpTimedWaiting + this.threadDumpBlocked;
   }
-  function cancel () {
-      $uibModalInstance.dismiss('cancel');
+
+  cancel () {
+      this.uibModalInstance.dismiss('cancel');
   }
 
-  function getLabelClass (threadState) {
+  getLabelClass(threadState) {
       if (threadState === 'RUNNABLE') {
           return 'label-success';
       } else if (threadState === 'WAITING') {

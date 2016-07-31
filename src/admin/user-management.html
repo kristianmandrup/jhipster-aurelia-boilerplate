@@ -36,7 +36,7 @@
                   </td>
                   <td>${user.langKey}</td>
                   <td>
-                      <div ng-repeat="authority in user.authorities">
+                      <div repeat.for="authority in user.authorities">
                           <span class="label label-info">${ authority }</span>
                       </div>
                   </td>
@@ -59,7 +59,7 @@
                           </button>
                           <button type="submit"
                                   ui-sref="user-management.delete({login:user.login})"
-                                  class="btn btn-danger btn-sm" ng-disabled="currentAccount.login==user.login">
+                                  class="btn btn-danger btn-sm" disabled.bind="currentAccount.login==user.login">
                               <span class="glyphicon glyphicon-remove-circle"></span>
                               <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                           </button>

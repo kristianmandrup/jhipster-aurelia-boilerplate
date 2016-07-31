@@ -1,6 +1,6 @@
 <template>
   <div class="modal-header">
-      <button aria-label="Close" data-dismiss="modal" class="close" type="button" ng-click="cancel()"><span aria-hidden="true">&times;</span>
+      <button aria-label="Close" data-dismiss="modal" class="close" type="button" click.bind="cancel()"><span aria-hidden="true">&times;</span>
       </button>
       <h4 class="modal-title" id="showHealthLabel">
   		${'health.indicator.' + baseName(currentHealth.name) | translate}
@@ -8,7 +8,7 @@
       </h4>
   </div>
   <div class="modal-body pad">
-      <div ng-show="currentHealth.details">
+      <div show.bind="currentHealth.details">
           <h4 translate="health.details.properties">Properties</h4>
           <table class="table table-striped">
               <thead>
@@ -18,14 +18,14 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr ng-repeat="(k,v) in currentHealth.details">
+                  <tr repeat.for="(k,v) in currentHealth.details">
                       <td class="col-md-6 text-left">${k}</td>
                       <td class="col-md-6 text-left">${v}</td>
                   </tr>
               </tbody>
           </table>
       </div>
-      <div ng-show="currentHealth.error">
+      <div show.bind="currentHealth.error">
           <h4 translate="health.details.error">Error</h4>
               <pre>${currentHealth.error}</pre>
       </div>

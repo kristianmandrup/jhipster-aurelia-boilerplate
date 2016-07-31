@@ -3,11 +3,11 @@ import User from 'user';
 
 @inject(User)
 export default class UserManagementDetail {
-  constructor(User, $stateParams) {
+  constructor(User, stateParams) {
     this.user = {};
     this.User = User;
 
-    this.load($stateParams.login);
+    this.load(stateParams.login);
   }
 
   load (login) {

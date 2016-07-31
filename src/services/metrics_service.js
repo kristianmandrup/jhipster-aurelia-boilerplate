@@ -1,22 +1,21 @@
-import $ from 'utils';
 import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import 'fetch';
+import {Resource} from '../resource';
 
-@inject(HttpClient)
+@inject(Resource)
+
 export default class MetricsService {
-  constructor(http) {
-    this.http = http;
+  constructor(resource) {
+    this.resource = resource;
   }
 
   getMetrics () {
-    return http.get('management/jhipster/metrics').then((response) => {
+    return this.resource.fetch('management/jhipster/metrics').then((response) => {
       return response.data;
     });
   }
 
   threadDump () {
-    return http.get('management/dump').then((response) => {
+    return this.resource.fetch('management/dump').then((response) => {
       return response.data;
     });
   }

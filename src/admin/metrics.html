@@ -157,7 +157,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr ng-repeat="(k, v) in servicesStats">
+              <tr repeat.for="[k, v] of servicesStats">
                   <td>${k}</td>
                   <td class="text-right">${v.count}</td>
                   <td class="text-right">${v.mean * 1000 | number:0}</td>
@@ -186,7 +186,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr ng-repeat="(k, v) in cachesStats" ng-once>
+              <tr repeat.for="[k, v] of cachesStats">
                   <td>${v.name}</td>
                   <td class="text-right">${metrics.gauges[k + '.objects'].value}</td>
                   <td class="text-right">${metrics.gauges[k + '.hits'].value}</td>

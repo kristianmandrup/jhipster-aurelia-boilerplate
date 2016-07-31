@@ -3,19 +3,20 @@ import User from 'user';
 
 @inject(User)
 export default class UserManagementDeleteController {
-  constructor(User, $uibModalInstance, entity) {
+  constructor(User, uibModalInstance, entity) {
     this.user = entity;
     this.clear = clear;
     this.confirmDelete = confirmDelete;
+    this.uibModalInstance = uibModalInstance;
   }
 
   clear () {
-    $uibModalInstance.dismiss('cancel');
+    this.uibModalInstance.dismiss('cancel');
   }
 
   confirmDelete (login) {
     User.delete({login: login}, () => {
-        $uibModalInstance.close(true);
+        this.uibModalInstance.close(true);
     });
   }
 }

@@ -1,18 +1,16 @@
 import $ from 'utils';
 import {inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import 'fetch';
+import {Resource} from '../resource';
 
-@inject(HttpClient)
+@inject(Resource)
 export default class HealthService {
-  constructor(http) {
-    this.separator = '.';
-    this.http = http;
+  constructor(resource) {
+    this.resource = resource;
   }
 
   checkHealth () {
-    return http.get('management/health').then((response) => {
-      return response.data;
+    return this.resource.fetch('management/health').then((response) => {
+      return response.json.data;
     });
   }
 

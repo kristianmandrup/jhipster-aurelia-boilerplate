@@ -1,0 +1,49 @@
+<template>
+  <div>
+      <h2 t="configuration.title">Configuration</h2>
+
+      <span t="configuration.filter">Filter (by prefix)</span> <input type="text" class="form-control">
+      <label hide.bind="filteredConfig.length == 0">Spring configuration</label>
+      <table class="table table-condensed table-striped table-bordered table-responsive"
+          style="table-layout:fixed" hide.bind="filteredConfig.length == 0">
+          <thead>
+          <tr>
+              <th click.delegate="predicate = 'prefix'; reverse=!reverse" class="col-sm-4"><span t="configuration.table.prefix">Prefix</span></th>
+              <th t="configuration.table.properties" class="col-sm-8">Properties</th>
+          </tr>
+          </thead>
+
+          <tr repeat.for="entry of filtered = (configuration | filter | reverse)">
+              <td><span>${entry.prefix}</span></td>
+              <td>
+                  <div class="row" repeat.for="item of entry.properties">
+                      <div class="col-md-4">${item.key}</div>
+                      <div class="col-md-8">
+                          <span class="pull-right label label-default break">${item.value}</span>
+                      </div>
+                  </div>
+              </td>
+          </tr>
+      </table>
+      <div ng-repeat="item in allConfiguration">
+          <label ng-hide="filtered.length == 0"><span>${item.key}</span></label>
+          <table class="table table-condensed table-striped table-bordered table-responsive"
+                 style="table-layout:fixed" ng-hide="filtered.length == 0">
+              <thead>
+              <tr>
+                  <th class="col-sm-4">Property</th>
+                  <th class="col-sm-8">Value</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="item of filtered = (value | filter)">
+                  <td class="break">${item.key}</td>
+                  <td class="break">
+                      <span class="pull-right label label-default break">${item.val}</span>
+                  </td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</template>

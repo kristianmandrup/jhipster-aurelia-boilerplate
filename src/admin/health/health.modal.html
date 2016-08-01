@@ -1,0 +1,36 @@
+<template>
+  <div class="modal-header">
+      <button aria-label="Close" data-dismiss="modal" class="close" type="button" click.delegate="cancel()"><span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="modal-title" id="showHealthLabel">
+  		${'health.indicator.' + baseName(currentHealth.name) | translate}
+          ${subSystemName(currentHealth.name)}
+      </h4>
+  </div>
+  <div class="modal-body pad">
+      <div show.bind="currentHealth.details">
+          <h4 t="health.details.properties">Properties</h4>
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th class="col-md-6 text-left" t="health.details.name">Name</th>
+                      <th class="col-md-6 text-left" t="health.details.value">Value</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr repeat.for="(k,v) in currentHealth.details">
+                      <td class="col-md-6 text-left">${k}</td>
+                      <td class="col-md-6 text-left">${v}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div show.bind="currentHealth.error">
+          <h4 t="health.details.error">Error</h4>
+              <pre>${currentHealth.error}</pre>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button data-dismiss="modal" class="btn btn-default pull-left" type="button" click.delegate="cancel()">Done</button>
+  </div>
+</template>

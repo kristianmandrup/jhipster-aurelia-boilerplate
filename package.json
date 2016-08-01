@@ -8,10 +8,13 @@
   },
   "license": "MIT",
   "dependencies": {
+    "aurelia-animator-css": "^1.0.0-rc.1.0.0",
     "aurelia-bootstrapper": "^1.0.0-rc.1.0.0",
     "aurelia-fetch-client": "^1.0.0-rc.1.0.0",
-    "aurelia-animator-css": "^1.0.0-rc.1.0.0",
-    "bluebird": "^3.4.1"
+    "aurelia-i18n": "^1.0.0",
+    "bluebird": "^3.4.1",
+    "i18next-xhr-backend": "^1.0.1",
+    "promise-defer": "^1.0.0"
   },
   "peerDependencies": {},
   "devDependencies": {

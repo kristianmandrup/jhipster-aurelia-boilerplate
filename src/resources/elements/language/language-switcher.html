@@ -1,0 +1,10 @@
+<template>
+    <form class="navbar-form navbar-left" role="language">
+        <div class="input-group">
+            <span class="input-group-addon fa fa-globe"></span>
+            <select value.bind="selectedLanguage" id="lg" class="form-control">
+                <option repeat.for="language of languages" value.bind="language.value">${language.text}</option>
+            </select>
+        </div>
+    </form>
+</template>

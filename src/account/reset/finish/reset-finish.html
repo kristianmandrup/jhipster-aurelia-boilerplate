@@ -1,0 +1,76 @@
+<template>
+  <div>
+      <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+              <h1 t="reset.finish.title">Reset password</h1>
+
+              <div class="alert alert-danger" t="reset.finish.messages.keymissing" show.bind.bind="keyMissing">
+                  <strong>The password reset key is missing.</strong>
+              </div>
+
+              <div class="alert alert-warning" hide.bind="success || keyMissing">
+                  <p t="reset.finish.messages.info">Choose a new password</p>
+              </div>
+
+              <div class="alert alert-danger" show.bind="error">
+                  <p t="reset.finish.messages.error">Your password couldn't be reset. Remember a password request is only valid for 24 hours.</p>
+              </div>
+
+              <div class="alert alert-success" show.bind="success">
+                  <p t="reset.finish.messages.success" translate-compile><strong>Your password has been reset.</strong> Please <a class="alert-link" href="" bind.click="login()">sign in</a>.</p>
+              </div>
+
+              <div class="alert alert-danger" show.bind="doNotMatch" t="global.messages.error.dontmatch">
+                  The password and its confirmation do not match!
+              </div>
+
+              <div hide.bind="keyMissing">
+                  <form show.bind="!success" name="form" role="form" novalidate submit="finishReset()" show.bind-validation>
+                      <div class="form-group">
+                          <label class="control-label" for="password" t="global.form.newpassword">New password</label>
+                          <input type="password" class="form-control" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+                                 model="resetAccount.password" minlength=4 maxlength=50 required>
+                          <div show.bind="password.dirtyInvalid">
+                              <p class="help-block"
+                                 show.bind="form.password.error.required" t="global.messages.validate.newpassword.required">
+                                  Your password is required.
+                              </p>
+                              <p class="help-block"
+                                 show.bind="password.$error.minlength" t="global.messages.validate.newpassword.minlength">
+                                  Your password is required to be at least 4 characters.
+                              </p>
+                              <p class="help-block"
+                                 show.bind="password.error.maxlength" t="global.messages.validate.newpassword.maxlength">
+                                  Your password cannot be longer than 50 characters.
+                              </p>
+                          </div>
+                          <password-strength-bar password-to-check.bind="resetAccount.password"></password-strength-bar>
+                      </div>
+
+                      <div class="form-group">
+                          <label class="control-label" for="confirmPassword" t="global.form.confirmpassword">New password confirmation</label>
+                          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder.bind="confirmpassword.placeholder"
+   minlength=4 maxlength=50 required>
+                          <div show.bind="confirmPassword.dirtyInvalid">
+                              <p class="help-block"
+                                 show.bind="confirmPassword.error.required" t="messages.validate.confirmpassword.required">
+                                  Your password confirmation is required.
+                              </p>
+                              <p class="help-block"
+                                 show.bind="confirmPassword.error.minlength" t="messages.validate.confirmpassword.minlength">
+                                  Your password confirmation is required to be at least 4 characters.
+                              </p>
+                              <p class="help-block"
+                                 show.bind="form.confirmPassword.error.maxlength" t="messages.validate.confirmpassword.maxlength">
+                                  Your password confirmation cannot be longer than 50 characters.
+                              </p>
+                          </div>
+                      </div>
+                      <button type="submit" disabled.bind="invalid" class="btn btn-primary" t="reset.finish.form.button">Reset Password</button>
+                  </form>
+              </div>
+
+          </div>
+      </div>
+  </div>
+</template>

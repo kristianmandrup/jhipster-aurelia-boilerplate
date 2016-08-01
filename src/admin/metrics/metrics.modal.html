@@ -1,0 +1,55 @@
+<template>
+  <!-- Modal used to display the threads dump -->
+  <div class="modal-header">
+      <button type="button" class="close" click.delegate="cancel()">&times;</button>
+      <h4 class="modal-title" t="metrics.jthreads.dump.title">Threads dump</h4>
+  </div>
+  <div class="modal-body pad">
+      <span class="label label-primary" click.delegate="threadDumpFilter = {}">All&nbsp;<span class="badge">${threadDumpAll}</span></span>&nbsp;
+      <span class="label label-success" click.delegate="threadDumpFilter = {threadState: 'RUNNABLE'}">Runnable&nbsp;<span class="badge">${threadDumpRunnable}</span></span>&nbsp;
+      <span class="label label-info" click.delegate="threadDumpFilter = {threadState: 'WAITING'}">Waiting&nbsp;<span class="badge">${threadDumpWaiting}</span></span>&nbsp;
+      <span class="label label-warning" click.delegate="threadDumpFilter = {threadState: 'TIMED_WAITING'}">Timed Waiting&nbsp;<span class="badge">${threadDumpTimedWaiting}</span></span>&nbsp;
+      <span class="label label-danger" click.delegate="threadDumpFilter = {threadState: 'BLOCKED'}">Blocked&nbsp;<span class="badge">${threadDumpBlocked}</span></span>&nbsp;
+      <div class="voffset2">&nbsp;</div>
+      Filter
+      <input type="text" value.two-way="threadDumpFilter" class="form-control">
+      <div class="row pad" repeat.for="dump of threadDump | filter:threadDumpFilter">
+          <h5><span class="label" ng-class="getLabelClass(threadState)">${dump.threadState}</span>&nbsp;${dump.threadName} (ID ${dump.threadId})
+              <a click.delegate="show = !show">
+                 <span show.bind="!show" t="metrics.jthreads.dump.show">Show StackTrace</span>
+                 <span show.bind="show" t="metrics.jthreads.dump.hide">Hide StackTrace</span>
+              </a>
+          </h5>
+          <div class="well" show.bind="show">
+              <div repeat.for="trace of stackTrace">
+                  ${trace.stclassName}.${trace.stmethodName}(${trace.stfileName}:${trace.stlineNumber})
+                  <span class="voffset1"></span>
+              </div>
+          </div>
+          <table class="table table-condensed">
+              <thead>
+                  <tr>
+                      <th class="text-right" t="metrics.jthreads.dump.blockedtime">Blocked Time</th>
+                      <th class="text-right" t="metrics.jthreads.dump.blockedcount">Blocked Count</th>
+                      <th class="text-right" t="metrics.jthreads.dump.waitedtime">Waited Time</th>
+                      <th class="text-right" t="metrics.jthreads.dump.waitedcount">Waited Count</th>
+                      <th t="metrics.jthreads.dump.lockname">Lock Name</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>${trace.blockedTime}</td>
+                      <td>${trace.blockedCount}</td>
+                      <td>${trace.waitedTime}</td>
+                      <td>${trace.waitedCount}</td>
+                      <td>${trace.lockName}</td>
+                  </tr>
+              </tbody>
+          </table>
+
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-default  pull-left" data-dismiss="modal" click.delegate="cancel()">Done</button>
+  </div>
+</template>

@@ -1,0 +1,29 @@
+<template>
+  <div class="table-responsive">
+      <h2 t="logs.title">Logs</h2>
+
+      <p t="logs.nbloggers" translate-values="{total: '${ loggers.length }'}">There are ${ loggers.length } loggers.</p>
+
+      <span t="logs.filter">Filter</span> <input type="text" model.bind="filter" class="form-control">
+
+      <table class="table table-condensed table-striped table-bordered">
+          <thead>
+          <tr title="click to order">
+              <th click.delegate="predicate = 'name'; reverse=!reverse"><span t="logs.table.name">Name</span></th>
+              <th click.delegate="predicate = 'level'; reverse=!reverse"><span t="logs.table.level">Level</span></th>
+          </tr>
+          </thead>
+
+          <tr repeat.for="logger in loggers | filter:filter | orderBy:predicate:reverse">
+              <td><small>${logger.name | characters:140}</small></td>
+              <td>
+                  <button click.delegate="changeLevel(logger.name, 'TRACE')" class="btn-${traceBtn} btn btn-default btn-xs">TRACE</button>
+                  <button click.delegate="changeLevel(logger.name, 'DEBUG')" class="btn-${debugBtn} btn btn-default btn-xs">DEBUG</button>
+                  <button click.delegate="changeLevel(logger.name, 'INFO')" class="btn-${infoBtn} btn btn-default btn-xs">INFO</button>
+                  <button click.delegate="changeLevel(logger.name, 'WARN')" class="btn-${warnBtn} btn btn-default btn-xs">WARN</button>
+                  <button click.delegate="changeLevel(logger.name, 'ERROR')" class="btn-${errorBtn} btn btn-default btn-xs">ERROR</button>
+              </td>
+          </tr>
+      </table>
+  </div>
+</template>

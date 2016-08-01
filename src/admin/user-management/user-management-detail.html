@@ -1,0 +1,38 @@
+<template>
+  <div>
+      <h2><span t="userManagement.detail.title">User</span> "${user.login}"</h2>
+      <dl class="dl-horizontal">
+          <dt><span t="userManagement.login">Login</span></dt>
+          <dd><span>${user.login}</span></dd>
+          <dt><span t="userManagement.firstName">First Name</span></dt>
+          <dd>${user.firstName}</dd>
+          <dt><span t="userManagement.lastName">Last Name</span></dt>
+          <dd>${user.lastName}</dd>
+          <dt><span t="userManagement.email">Email</span></dt>
+          <dd>${user.email}</dd>
+          <dt><span t="userManagement.activated">Activated</span></dt>
+          <dd>${user.activated}</dd>
+          <dt><span t="userManagement.langKey">Lang Key</span></dt>
+          <dd>${user.langKey}</dd>
+          <dt><span t="userManagement.createdBy">Created By</span></dt>
+          <dd>${user.createdBy}</dd>
+          <dt><span t="userManagement.createdDate">Created Date</span></dt>
+          <dd>${user.createdDate | date:'dd/MM/yy HH:mm' }</dd>
+          <dt><span t="userManagement.lastModifiedBy">Last Modified By</span></dt>
+          <dd>${user.lastModifiedBy}</dd>
+          <dt><span t="userManagement.lastModifiedDate">Last Modified Date</span></dt>
+          <dd>${user.lastModifiedDate | date:'dd/MM/yy HH:mm'}</dd>
+          <dt><span t="userManagement.profiles">Profiles</span></dt>
+          <dd>
+              <ul class="list-unstyled">
+                  <li repeat.for="authority of user.authorities"><span>${authority}</span></li>
+              </ul>
+          </dd>
+      </dl>
+      <button type="submit"
+              ui-sref="user-management"
+              class="btn btn-info">
+          <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span t="entity.action.back"> Back</span>
+      </button>
+  </div>
+</template>

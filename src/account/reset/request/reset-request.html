@@ -1,0 +1,48 @@
+<template>
+  <div>
+      <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+              <h1 t="reset.request.title">Reset your password</h1>
+
+              <div class="alert alert-danger" t="reset.request.messages.notfound" show.bind="errorEmailNotExists">
+                  <strong>E-Mail address isn't registered!</strong> Please check and try again.
+              </div>
+
+              <div class="alert alert-warning" hide.bind="success">
+                  <p t="reset.request.messages.info">Enter the e-mail address you used to register.</p>
+              </div>
+
+              <div class="alert alert-success" show.bind="success == 'OK'">
+                  <p t="reset.request.messages.success">Check your e-mails for details on how to reset your password.</p>
+              </div>
+
+              <form .bind="!success" name="form" role="form" novalidate submit="requestReset()" show.bind-validation>
+                  <div class="form-group">
+                      <label class="control-label" for="email" t="global.form.email">E-mail</label>
+                      <input type="email" class="form-control" id="email" name="email" placeholder.bind="email.placeholder" minlength=5 maxlength=100 required>
+                      <div show.bind="email.dirtyInvalid">
+                          <p class="help-block"
+                             show.bind="email.error.required" t="global.messages.validate.email.required">
+                              Your e-mail is required.
+                          </p>
+                          <p class="help-block"
+                             show.bind="email.error.email" t="global.messages.validate.email.invalid">
+                              Your e-mail is invalid.
+                          </p>
+                          <p class="help-block"
+                             show.bind="email.$error.minlength" t="messages.validate.email.minlength">
+                              Your e-mail is required to be at least 5 characters.
+                          </p>
+                          <p class="help-block"
+                             show.bind="form.email.$error.maxlength" t="messages.validate.email.maxlength">
+                              Your e-mail cannot be longer than 100 characters.
+                          </p>
+                      </div>
+                  </div>
+                  <button type="submit" disabled.bind="form.invalid" class="btn btn-primary" t="reset.request.form.button">Reset</button>
+              </form>
+
+          </div>
+      </div>
+  </div>
+</template>

@@ -12,6 +12,10 @@ using [Breeze.js](breezejs.com) for rich data management, syncing client and ser
 
 Please help us improve the boilerplate and generator if you want to use JHipster with Aurelia ;)
 
+## i18n
+
+Uses the [aurelia-i18n](https://github.com/aurelia/i18n) as described [here](https://mttmccb.github.io/starting-with-aurelia-i18n/)
+
 ## Status
 
 *WIP*
@@ -30,6 +34,6 @@ Integrate with [Breeze.js](breezejs.com) like the entity generator. Move the com
 
 Please do :)
 
-## License 
+## License
 
 MIT   

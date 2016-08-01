@@ -1,0 +1,18 @@
+<template>
+  <div>
+      <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+              <h1 t="activate.title">Activation</h1>
+
+              <div class="alert alert-success" show.bind="success" t="activate.messages.success" translate-compile>
+                  <strong>Your user has been activated.</strong> Please <a class="alert-link" href="" click.delegate="login()">sign in</a>.
+              </div>
+
+              <div class="alert alert-danger" show.bind="error" t="activate.messages.error">
+                  <strong>Your user could not be activated.</strong> Please use the registration form to sign up.
+              </div>
+
+          </div>
+      </div>
+  </div>
+</template>

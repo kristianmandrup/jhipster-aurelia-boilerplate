@@ -1,5 +1,7 @@
 # Jhipster Aurelia boilerplate
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kristianmandrup/jhipster-aurelia-boilerplate.svg)](https://greenkeeper.io/)
+
 This [Aurelia](aurelia.io) project is designed to work as a starting point for using [Jhipster](https://jhipster.github.io) with Aurelia, the cooler brother of Angular ;)
 
 We are also developing a client side [JHipster entity generator for Aurelia](https://github.com/kristianmandrup/aurelia-breeze-hipster-entity-generator)
